@@ -1,6 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5 import uic
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
 from PyQt5.QtGui import QPainter, QColor
 from random import randint
 
@@ -9,8 +8,17 @@ class Okrujnost(QMainWindow):
     def __init__(self):
         super().__init__()
         self.flag = False
-        uic.loadUi('untitled.ui', self)
-        self.pushButton.clicked.connect(self.paint)
+        self.initUI()
+
+    def initUI(self):
+        self.setGeometry(300, 300, 600, 650)
+        self.setWindowTitle('Git и случайные окружности')
+
+        self.button = QPushButton(self)
+        self.button.resize(140, 30)
+        self.button.move(400, 560)
+        self.button.setText('Нарисовать окружность')
+        self.button.clicked.connect(self.paint)
 
     def paint(self):
         self.flag = True
@@ -25,7 +33,8 @@ class Okrujnost(QMainWindow):
             self.flag = False
 
     def draw_circle(self, qp):
-        qp.setBrush(QColor(255, 255, 0))
+        r, g, b = randint(1, 255), randint(1, 255), randint(1, 255)
+        qp.setBrush(QColor(r, g, b))
         x = randint(1, 300)
         qp.drawEllipse(300 - x // 2, 300 - x // 2, x, x)
 
